@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Recommended"
+        android:icon="@drawable/ic_baseline_star_24"
+        android:id="@+id/Recommended"/>
+    <item android:title="Explore"
+        android:icon="@drawable/ic_baseline_explore_24"
+        android:id="@+id/Explore"/>
+    <item android:title="Contribute"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:id="@+id/Contribute"/>
+    <item android:title="Account"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:id="@+id/Account"/>
+</menu>
