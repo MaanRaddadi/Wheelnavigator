@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "915541801737",
+    "firebase_url": "https://wheelnavigator-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "wheelnavigator",
+    "storage_bucket": "wheelnavigator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915541801737:android:629552077d184b9c9171d8",
+        "android_client_info": {
+          "package_name": "com.example.wheelnavigator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915541801737-arcohiiagoior88v016br3jnboib56uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPGDzrvapsiixOFCm_3MRjA674zGqLBxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915541801737-arcohiiagoior88v016br3jnboib56uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
