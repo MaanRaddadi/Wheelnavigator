@@ -28,8 +28,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
-        Intent intent = new Intent(MainActivity.this , Register.class);
+        setContentView(R.layout.login);
+
+
+        Intent intent = new Intent(MainActivity.this , Login.class);
         startActivity(intent);
 
 

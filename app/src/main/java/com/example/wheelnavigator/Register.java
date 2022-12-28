@@ -51,7 +51,7 @@ public class Register extends AppCompatActivity {
                   final boolean Yestxt = Yes.isChecked();
 
 
-                   User A ;
+
 
                       mDatabase.child("users").child(Unametxt).child("Email").setValue(Emailtxt);
                       mDatabase.child("users").child(Unametxt).child("Password").setValue(Passtxt);
