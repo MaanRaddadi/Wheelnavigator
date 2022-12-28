@@ -22,23 +22,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    private EditText Username;
-    private EditText Email;
-    private EditText Password;
-    private CheckBox Yes;
-    private CheckBox No;
-    private Button RegisterButton;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
-
-
-
-
+        Intent intent = new Intent(MainActivity.this , Register.class);
+        startActivity(intent);
 
 
     }
 }
+
+
+
+
