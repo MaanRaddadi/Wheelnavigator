@@ -11,51 +11,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.wheelnavigator.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
 
 
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private EditText Username;
+    private EditText Email;
+    private EditText Password;
+    private CheckBox Yes;
+    private CheckBox No;
+    private Button RegisterButton;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        replacefragment(new RecommendedFragment());
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+        setContentView(R.layout.register);
 
 
-            switch (item.getItemId()) {
-                case R.id.Recommended:
-                    replacefragment(new RecommendedFragment());
-                    break;
-                case R.id.Explore:
-                    replacefragment(new ExploreFragment());
-                    break;
-                case R.id.Contribute:
-                    replacefragment(new CountributeFragment());
-                    break;
-                case R.id.Account:
-                    replacefragment(new AccountFragment());
-                    break;
 
 
-            }
-
-            return true;
-        });
 
 
-    }
-
-    private void replacefragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_id, fragment);
-        fragmentTransaction.commit();
     }
 }

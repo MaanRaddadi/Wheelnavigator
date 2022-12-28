@@ -7,17 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
-    private DatabaseReference mDatabase;
-    private EditText EditText1;
-    private EditText EditText2;
-    private EditText EditText3;
-    private CheckBox checkBox1;
-    private CheckBox checkBox2;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private EditText Username;
+    private EditText Email;
+    private EditText Password;
+    private CheckBox Yes;
+    private CheckBox No;
     private Button RegisterButton;
 
 
@@ -28,38 +29,37 @@ public class Register extends AppCompatActivity {
 
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Username= findViewById(R.id.editTextUsername);
+        Email= findViewById(R.id.EditTextEmail);
+        Password = findViewById(R.id.editTextPassword);
+        Yes = findViewById(R.id.checkYes);
+        No = findViewById(R.id.checkNo);
 
-
-        EditText EditText1;
-        EditText EditText2;
-        EditText EditText3;
-        CheckBox checkBox1;
-        CheckBox checkBox2;
-
-
-        EditText1= findViewById(R.id.editTextUsername);
-        EditText2= findViewById(R.id.EditTextEmail);
-        EditText3 = findViewById(R.id.editTextPassword);
-        checkBox1 = findViewById(R.id.checkYes);
-        checkBox2 = findViewById(R.id.checkNo);
-
-          Button btn = findViewById(R.id.regbutton);
-          btn.setOnClickListener(new View.OnClickListener() {
+          RegisterButton = findViewById(R.id.regbutton);
+          RegisterButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  sendData();
+                  String Unametxt = Username.getText().toString();
+                  String Emailtxt = Email.getText().toString();
+                  String Passtxt = Password.getText().toString();
+                  boolean Yestxt = Yes.isChecked();
+
+                  if(Unametxt.isEmpty() || Emailtxt.isEmpty() || Passtxt.isEmpty()){
+                      Toast.makeText(Register.this,"Please fill all the fields", Toast.LENGTH_SHORT).show();
+                  }
+                  else{
+                      mDatabase.child("users").child("Email").setValue(Emailtxt);
+                      mDatabase.child("users").child("Password").setValue(Passtxt);
+                      mDatabase.child("users").child("Disability").setValue(Yestxt);
+
+
+
+                  }
+
               }
           });
 
     }
-    private void writeNewUser() {
-        User user = new User (EditText1.getText().toString(),EditText2.getText().toString(), EditText3.getText().toString(), checkBox1.isChecked());
 
-        mDatabase.child("users").child(user.getUserid()).setValue(user);
-    }
 
-    public void sendData() {
-        writeNewUser();
-    }
     }

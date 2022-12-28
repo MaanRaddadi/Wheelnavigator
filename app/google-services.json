@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "915541801737",
-    "firebase_url": "https://wheelnavigator-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "wheelnavigator",
-    "storage_bucket": "wheelnavigator.appspot.com"
+    "project_number": "1040093747862",
+    "project_id": "wheelnavigator-b03a0",
+    "storage_bucket": "wheelnavigator-b03a0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:915541801737:android:629552077d184b9c9171d8",
+        "mobilesdk_app_id": "1:1040093747862:android:fb0ff0c55b54d5632f00b7",
         "android_client_info": {
           "package_name": "com.example.wheelnavigator"
         }
       },
       "oauth_client": [
         {
-          "client_id": "915541801737-arcohiiagoior88v016br3jnboib56uc.apps.googleusercontent.com",
+          "client_id": "1040093747862-alqvlrkvv9lfscpv7qmd16tm7liqkufk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBPGDzrvapsiixOFCm_3MRjA674zGqLBxo"
+          "current_key": "AIzaSyBSqbrMnHBIWKvbrAeZwmVFSBGwM2w0YZE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "915541801737-arcohiiagoior88v016br3jnboib56uc.apps.googleusercontent.com",
+              "client_id": "1040093747862-alqvlrkvv9lfscpv7qmd16tm7liqkufk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
