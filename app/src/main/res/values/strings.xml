@@ -2,4 +2,13 @@
     <string name="app_name">Wheelnavigator</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="SpecialServices">
+        <item></item>
+    <item>Wheelchair Ramps</item>
+    <item>Wheelchair Wc</item>
+    <item>Wheelchair Parkings</item>
+    <item>Wheelchair Elevators </item>
+    </string-array>
+
 </resources>

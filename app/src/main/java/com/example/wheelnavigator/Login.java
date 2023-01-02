@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity {
                 }
 
                 else{
-                mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
 
                                  if(getpassword.equals(LoginPassTxt)){
                                      Toast.makeText(Login.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
-                                     startActivity(new Intent(Login.this, Register.class));
+                                     startActivity(new Intent(Login.this, MainActivity.class));
                                  }
                                  else{
                                      Toast.makeText(Login.this, "Check Entered Data and try again ", Toast.LENGTH_SHORT).show();
