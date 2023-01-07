@@ -82,6 +82,14 @@
         android:layout_height="wrap_content"
         android:text="Choose Image"
 ></Button>
+
+        <TextView
+            android:id="@+id/imageCountxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textStyle="bold"/>
+
         <Button
             android:id="@+id/Upload"
             android:layout_width="wrap_content"
@@ -90,13 +98,7 @@
             ></Button>
 
 
-        <ImageView
-            android:id="@+id/Img1"
-            android:layout_width="150dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
 
-            ></ImageView>
 
         <Button
             android:id="@+id/Send_Request"

@@ -9,36 +9,46 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class CountributeActivity extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private StorageReference mStorage = FirebaseStorage.getInstance().getReference("Uploads");
+    private FirebaseAuth Auth = FirebaseAuth.getInstance();
 
+
+    private int uploads = 0;
     private static int RESULT_LOAD_IMAGE = 1;
     private Button SendRequestBtn;
     private Button Choosefilebtn;
     private Button Uploadbtn;
-    private Uri mimageUri;
-    private ImageView mImageView1;
     private EditText Placename;
     private EditText Telephonenum;
     private EditText Crn;
     private EditText Email;
     private EditText DoP;
     public Boolean Approved = false;
+    private ArrayList<Uri> ImageList = new ArrayList<Uri>();
+    private TextView ChooseImgtxt;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +57,11 @@ public class CountributeActivity extends AppCompatActivity {
 
         SendRequestBtn = findViewById(R.id.Send_Request);
         Choosefilebtn = findViewById(R.id.ChooseImg);
-        mImageView1 = findViewById(R.id.Img1);
+
         Uploadbtn = findViewById(R.id.Upload);
 
+
+        ChooseImgtxt = findViewById(R.id.imageCountxt);
 
         Placename = findViewById(R.id.PlaceName);
         Telephonenum = findViewById(R.id.PlaceTelephone);
@@ -57,7 +69,9 @@ public class CountributeActivity extends AppCompatActivity {
         Email = findViewById(R.id.PlaceEmail);
         DoP = findViewById(R.id.DescriptionOfServices);
 
+
         Choosefilebtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 OpenFile();
@@ -67,7 +81,7 @@ public class CountributeActivity extends AppCompatActivity {
         Uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uploadfile();
+                upload(Crn.getText().toString());
             }
         });
 
@@ -96,53 +110,100 @@ public class CountributeActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_CANCELED) {
-            if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
-                    && data != null && data.getData() != null)
-                mimageUri = data.getData();
 
-            mImageView1.setImageURI(mimageUri);
+        if (requestCode == RESULT_LOAD_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                if (data.getClipData() != null) {
+                    int count = data.getClipData().getItemCount();
+
+                    int CurrentImageSelect = 0;
+
+                    while (CurrentImageSelect < count) {
+                        Uri imageuri = data.getClipData().getItemAt(CurrentImageSelect).getUri();
+                        ImageList.add(imageuri);
+                        CurrentImageSelect = CurrentImageSelect + 1;
+                    }
+                    ChooseImgtxt.setVisibility(View.VISIBLE);
+                    ChooseImgtxt.setText("You Have Selected " + ImageList.size() + " Pictures");
+                    Choosefilebtn.setVisibility(View.GONE);
+                }
+
+            }
+
         }
+
     }
-     private String getFileExtension(Uri uri){
-         ContentResolver cR = getContentResolver() ;
-         MimeTypeMap mime = MimeTypeMap.getSingleton();
-         return mime.getExtensionFromMimeType(cR.getType(uri));
 
-     }
-    private void Uploadfile(){
-          if(mimageUri  != null){
-              StorageReference fileReference = mStorage.child(System.currentTimeMillis()
-                      + "." + getFileExtension(mimageUri));
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
 
-              fileReference.putFile(mimageUri)
-                      .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                          @Override
-                          public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                              Toast.makeText(CountributeActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+    }
 
-                              Upload upload = new Upload(taskSnapshot.getUploadSessionUri().toString());
-                              String uploadid = mDatabase.push().getKey();
-                              mDatabase.child("Uploads").child(uploadid).setValue(upload);
-                          }
-                      })
-                      .addOnFailureListener(new OnFailureListener() {
-                          @Override
-                          public void onFailure(@NonNull Exception e) {
-                              Toast.makeText(CountributeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                          }
-                      });
+    public void upload(String Crn) {
 
-          }
-          else {
-              Toast.makeText(this, "Please Choose a pictur to upload", Toast.LENGTH_SHORT).show();
-          }
+
+
+        final StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child(Crn).child("ImageFolder");
+        for (uploads = 0; uploads < ImageList.size(); uploads++) {
+            Uri Image = ImageList.get(uploads);
+            final StorageReference imagename = ImageFolder.child("images/");
+
+            imagename.putFile(ImageList.get(uploads)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            String url = String.valueOf(uri);
+                            SendLink(url, Crn);
+                        }
+                    });
+
+                }
+            });
+
+
+        }
+
+
+    }
+
+    private void SendLink(String url, String Crn) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("link", url);
+        mDatabase.child("Places Pictures").child(Crn).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+
+                ChooseImgtxt.setText("Image Uploaded Successfully");
+
+                ImageList.clear();
+            }
+        });
+
+
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = Auth.getCurrentUser();
+        if(currentUser == null){
+            startActivity(new Intent(CountributeActivity.this, Login.class));
+        }
+
+
     }
 
 }

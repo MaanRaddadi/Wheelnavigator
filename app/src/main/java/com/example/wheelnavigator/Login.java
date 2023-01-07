@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,65 +24,50 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    @Override
+    private FirebaseAuth Auth;
 
+    @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-
-        final EditText LoginUsr = findViewById(R.id.LoginUsername);
-        final EditText LoginPass= findViewById(R.id.LoginPassword);
+        final Button  Skip = findViewById(R.id.Skip);
+        final EditText LoginEmail = findViewById(R.id.LoginEmail);
+        final EditText LoginPass = findViewById(R.id.LoginPassword);
         final Button LoginBtn = findViewById(R.id.LoginButton);
         final Button Regnow = findViewById(R.id.RegNow);
-
+        Auth = FirebaseAuth.getInstance();
 
         LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String LoginUsrTxt = LoginUsr.getText().toString();
+                final String LoginEmailTxt = LoginEmail.getText().toString();
                 final String LoginPassTxt = LoginPass.getText().toString();
 
-                if(LoginUsrTxt.isEmpty() || LoginPassTxt.isEmpty()){
+                if (LoginEmailTxt.isEmpty() || LoginPassTxt.isEmpty()) {
                     Toast.makeText(Login.this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
-                }
+                } else {
+                    Auth.signInWithEmailAndPassword(LoginEmailTxt, LoginPassTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                Toast.makeText(Login.this, "Login Succeeded ", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                            }
+                            else  {
+                                Toast.makeText(Login.this, "Login Failed Please Check your Email & Password ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                else{
-                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        // Check if entered username exist in the database
-                          if(snapshot.hasChild(LoginUsrTxt)){
-
-                                 final String getpassword = snapshot.child(LoginUsrTxt).child("Password").getValue(String.class);
-
-                                 if(getpassword.equals(LoginPassTxt)){
-                                     Toast.makeText(Login.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
-                                     startActivity(new Intent(Login.this, MainActivity.class));
-                                 }
-                                 else{
-                                     Toast.makeText(Login.this, "Check Entered Data and try again ", Toast.LENGTH_SHORT).show();
-                                 }
-                          }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-
-
-                });
+                    });
 
                 }
+
             }
 
 
-
         });
-
         Regnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,5 +75,11 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        Skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, MainActivity.class));
+            }
+        });
     }
 }

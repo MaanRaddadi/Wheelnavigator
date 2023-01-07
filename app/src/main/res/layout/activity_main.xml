@@ -48,10 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="146dp"
         android:layout_marginEnd="171dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="12dp"
         android:text="Contribute"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -60,40 +61,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="146dp"
         android:layout_marginEnd="171dp"
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="292dp"
         android:text="Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/LoginMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="171dp"
-        android:layout_marginBottom="7dp"
-        android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/RegMain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/RegMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="171dp"
-        android:layout_marginBottom="108dp"
-        android:text="Register"
-        app:layout_constraintBottom_toTopOf="@+id/button1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginMain" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
