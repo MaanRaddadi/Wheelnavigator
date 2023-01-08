@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,13 +27,14 @@ public class Login extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth Auth;
 
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        final Button  Skip = findViewById(R.id.Skip);
+        final Button Skip = findViewById(R.id.Skip);
         final EditText LoginEmail = findViewById(R.id.LoginEmail);
         final EditText LoginPass = findViewById(R.id.LoginPassword);
         final Button LoginBtn = findViewById(R.id.LoginButton);
@@ -51,11 +53,10 @@ public class Login extends AppCompatActivity {
                     Auth.signInWithEmailAndPassword(LoginEmailTxt, LoginPassTxt).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()) {
+                            if (task.isSuccessful()) {
                                 Toast.makeText(Login.this, "Login Succeeded ", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(Login.this, MainActivity.class));
-                            }
-                            else  {
+                            } else {
                                 Toast.makeText(Login.this, "Login Failed Please Check your Email & Password ", Toast.LENGTH_SHORT).show();
                             }
                         }

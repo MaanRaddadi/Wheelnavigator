@@ -16,12 +16,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
     private FirebaseAuth Auth ;
+    private FirebaseUser mCurrentUser;
+    private DatabaseReference ref;
 
 
 
@@ -44,43 +47,49 @@ public class Register extends AppCompatActivity {
         No = findViewById(R.id.checkNo);
 
 
-
-          RegisterButton = findViewById(R.id.regbutton);
-          RegisterButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-
-
-                  final String Unametxt = Username.getText().toString();
-                  final String Emailtxt = Email.getText().toString();
-                  final String Passtxt = Password.getText().toString();
-                  final boolean Yestxt = Yes.isChecked();
+        RegisterButton = findViewById(R.id.regbutton);
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
-                  //Create User in Firebase Authntication
-                  Auth = FirebaseAuth.getInstance();
-                  Auth.createUserWithEmailAndPassword(Emailtxt, Passtxt).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
-                      @Override
-                      public void onComplete(@NonNull Task<AuthResult> task) {
-                       Toast.makeText(Register.this, "Registration Succeeded", Toast.LENGTH_LONG).show();
-                      }
-
-                  });
+                final String Unametxt = Username.getText().toString();
+                final String Emailtxt = Email.getText().toString();
+                final String Passtxt = Password.getText().toString();
+                final boolean Yestxt = Yes.isChecked();
 
 
-                  // Store user data in firebase database
-                      mDatabase.child("users").child(Unametxt).child("Email").setValue(Emailtxt);
-                      mDatabase.child("users").child(Unametxt).child("Password").setValue(Passtxt);
-                      mDatabase.child("users").child(Unametxt).child("Disability").setValue(Yestxt);
+                //Create User in Firebase Authentication
+                Auth = FirebaseAuth.getInstance();
+                Auth.createUserWithEmailAndPassword(Emailtxt, Passtxt).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            mCurrentUser= task.getResult().getUser();
+                            ref=mDatabase.child(mCurrentUser.getUid());
+                            ref.child("Username").setValue(Unametxt);
+                            ref.child("email").setValue(Emailtxt);
+                            ref.child("Password").setValue(Passtxt);
+                            ref.child("Disability").setValue(Yestxt);
+                        }
+                        Toast.makeText(Register.this, "Registration Succeeded", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Register.this, MainActivity.class));
+                    }
+
+                });
 
 
 
-                  }
 
 
-          });
+
+
+            }
+
+
+        });
 
     }
 
 
-    }
+}
