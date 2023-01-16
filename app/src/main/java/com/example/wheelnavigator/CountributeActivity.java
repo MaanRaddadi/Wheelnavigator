@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -48,6 +51,9 @@ public class CountributeActivity extends AppCompatActivity {
     public Boolean Approved = false;
     private ArrayList<Uri> ImageList = new ArrayList<Uri>();
     private TextView ChooseImgtxt;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +80,12 @@ public class CountributeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                OpenFile();
+                if(Crn.getText().toString().isEmpty() == true){
+                    Toast.makeText(CountributeActivity.this, "Please fill out all the field before choosing images", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    OpenFile();
+                }
             }
         });
 
@@ -84,6 +95,11 @@ public class CountributeActivity extends AppCompatActivity {
                 upload(Crn.getText().toString());
             }
         });
+
+
+
+
+
 
         SendRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +117,10 @@ public class CountributeActivity extends AppCompatActivity {
                 mDatabase.child("Place Requests").child(CrnTxt).child("Email").setValue(EmailTxt);
                 mDatabase.child("Place Requests").child(CrnTxt).child("Details of Services").setValue(DoPTxt);
                 mDatabase.child("Place Requests").child(CrnTxt).child("Approved :").setValue(Approved);
+
+                Toast.makeText(CountributeActivity.this, "Request has been Sent", Toast.LENGTH_LONG).show();
+                startActivity(new Intent (CountributeActivity.this, MainActivity.class));
+
             }
         });
 
@@ -113,6 +133,9 @@ public class CountributeActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -132,6 +155,7 @@ public class CountributeActivity extends AppCompatActivity {
                     }
                     ChooseImgtxt.setVisibility(View.VISIBLE);
                     ChooseImgtxt.setText("You Have Selected " + ImageList.size() + " Pictures");
+
                     Choosefilebtn.setVisibility(View.GONE);
                 }
 
@@ -141,12 +165,7 @@ public class CountributeActivity extends AppCompatActivity {
 
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
 
-    }
 
     public void upload(String Crn) {
 
@@ -178,10 +197,15 @@ public class CountributeActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
     private void SendLink(String url, String Crn) {
+
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("link", url);
-        mDatabase.child("Places Pictures").child(Crn).push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("Place Requests").child(Crn).child("Pictures").push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 

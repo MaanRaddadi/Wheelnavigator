@@ -5,10 +5,11 @@
 
     <string-array name="SpecialServices">
         <item></item>
-    <item>Wheelchair Ramps</item>
-    <item>Wheelchair Wc</item>
-    <item>Wheelchair Parkings</item>
-    <item>Wheelchair Elevators </item>
+        <item>Wheelchair Ramps</item>
+        <item>Wheelchair Wc</item>
+        <item>Wheelchair Parkings</item>
+        <item>Wheelchair Elevators </item>
     </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>

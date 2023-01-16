@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         final Button Explore = findViewById(R.id.button2);
         final Button Countribute = findViewById(R.id.button3);
         final Button Account = findViewById(R.id.button4);
-
+        final Button Admin = findViewById(R.id.button5);
 
 
         Recommended.setOnClickListener(new View.OnClickListener() {
@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
+        Admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AdminPanel.class));
+            }
+        });
 
 
 

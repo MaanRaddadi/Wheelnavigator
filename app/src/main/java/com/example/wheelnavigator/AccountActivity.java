@@ -16,7 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AccountActivity extends AppCompatActivity {
-    private FirebaseAuth Auth = FirebaseAuth.getInstance();private FirebaseUser mCurrentUser = Auth.getCurrentUser(); ;
+    private FirebaseAuth Auth = FirebaseAuth.getInstance();
+    private FirebaseUser mCurrentUser = Auth.getCurrentUser(); ;
 private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
 private TextView AccountUsername;
 private TextView AccountEmail;
