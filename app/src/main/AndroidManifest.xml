@@ -16,6 +16,13 @@
         android:theme="@style/Theme.Wheelnavigator"
         tools:targetApi="31">
         <activity
+            android:name=".Showimages"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".viewRequest"
             android:exported="false">
             <meta-data

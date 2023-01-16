@@ -3,7 +3,10 @@ package com.example.wheelnavigator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ public class viewRequest extends AppCompatActivity {
       TextView Name, Email,Telephone, DoS, Crn;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Place Requests");
     private DatabaseReference ref;
+    Button viewBtn ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +91,18 @@ public class viewRequest extends AppCompatActivity {
             }
         });
 
+        viewBtn = findViewById(R.id.ViewImg);
+
+        String finalValue = value;
+        viewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(viewRequest.this, Showimages.class);
+                i.putExtra("Crn", finalValue);
+                startActivity(i);
+            }
+        });
 
 
 

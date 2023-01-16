@@ -126,9 +126,10 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
         android:layout_width="354dp"
-        android:layout_height="222dp"
 
+        android:layout_height="222dp"
         android:layout_marginStart="33dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="24dp"
@@ -157,14 +158,17 @@
             android:textSize="20dp" />
     </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <Button
+        android:id="@+id/ViewImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginBottom="58dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="111dp"
+        android:text="View Place Images"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

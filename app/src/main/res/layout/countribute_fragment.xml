@@ -76,19 +76,12 @@
         android:text="Please Upload the pictures for the services stated above"
         android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/ChooseImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose Image"
-></Button>
 
-        <TextView
-            android:id="@+id/imageCountxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/choose"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_baseline_image_24" />
 
         <Button
             android:id="@+id/Upload"
