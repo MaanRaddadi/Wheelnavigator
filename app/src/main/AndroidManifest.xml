@@ -16,14 +16,56 @@
         android:theme="@style/Theme.Wheelnavigator"
         tools:targetApi="31">
         <activity
-            android:name=".Showimages"
+            android:name=".Creat_RatingCrn"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".viewRequest"
+            android:name=".Creating_Rating1"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PlacePagePackage.usrfeedback"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".usrFeedback"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PlacePagePackage.PlacePage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PlacePageActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Admin.Showimages"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Admin.viewRequest"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -45,21 +87,21 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".Create_Rating"
+            android:name=".Admin.Create_Rating"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RequestsPage"
+            android:name=".Admin.RequestsPage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AdminPanel"
+            android:name=".Admin.AdminPanel"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -80,14 +122,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RecommendedActivity"
+            android:name=".Recommended.RecommendedActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".Registration.Login"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -101,7 +143,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Register"
+            android:name=".Registration.Register"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

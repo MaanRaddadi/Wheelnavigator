@@ -1,4 +1,4 @@
-package com.example.wheelnavigator;
+package com.example.wheelnavigator.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,22 +7,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wheelnavigator.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 public class viewRequest extends AppCompatActivity {
-      TextView Name, Email,Telephone, DoS, Crn;
+      TextView Name, Email,Telephone, DoS, Crn ,  Approval;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Place Requests");
     private DatabaseReference ref;
-    Button viewBtn ;
+    Button viewBtn , ApproveBtn , DeclineBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +32,8 @@ public class viewRequest extends AppCompatActivity {
         Telephone = findViewById(R.id.PlaceTelephone);
         DoS = findViewById(R.id.DescriptionOfServices);
         Crn = findViewById(R.id.PlaceCrn);
+        Approval = findViewById(R.id.Approval);
+
 
         String value = "1";
         Bundle extras = getIntent().getExtras();
@@ -91,6 +92,19 @@ public class viewRequest extends AppCompatActivity {
             }
         });
 
+        ref.child("Approved").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Boolean AprovalStatus = (Boolean) snapshot.getValue();
+                Approval.setText(AprovalStatus.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         viewBtn = findViewById(R.id.ViewImg);
 
         String finalValue = value;
@@ -104,10 +118,24 @@ public class viewRequest extends AppCompatActivity {
             }
         });
 
+        ApproveBtn = findViewById(R.id.ApproveBtn);
+        DeclineBtn  = findViewById(R.id.DeclineBtn);
 
+        ApproveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.child("Approved").setValue(true);
+                Toast.makeText(viewRequest.this , "Request has been Approved", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-
+        DeclineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.child("Approved").setValue(false);
+                Toast.makeText(viewRequest.this , "Request has been Declined", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 

@@ -1,4 +1,4 @@
-package com.example.wheelnavigator;
+package com.example.wheelnavigator.Admin;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import android.content.Context;
 
 import com.bumptech.glide.Glide;
+import com.example.wheelnavigator.R;
 
 public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.MyViewHolder> {
 

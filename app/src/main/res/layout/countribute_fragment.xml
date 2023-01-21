@@ -88,22 +88,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upload"
-            ></Button>
-
-
+            android:textAllCaps="false"></Button>
         <TextView
-            android:id="@+id/iconText"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
+            android:text="Please Upload a logo for your place :"
             android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/LogoChoose"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_baseline_image_24" />
+
+        <Button
+            android:id="@+id/LogoUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload"
+            android:textAllCaps="false" ></Button>
+
+
+
 
         <Button
             android:id="@+id/Send_Request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send Request"
-
+            android:textAllCaps="false"
            ></Button>
 
 

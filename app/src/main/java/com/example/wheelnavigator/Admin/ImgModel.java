@@ -1,4 +1,4 @@
-package com.example.wheelnavigator;
+package com.example.wheelnavigator.Admin;
 
 public class ImgModel {
     private String imageUrl;
