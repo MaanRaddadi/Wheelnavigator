@@ -44,7 +44,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
              PlaceDataModle place = list.get(position);
              holder.placename.setText(place.getName());
 
-        Glide.with(context).load(list.get(position).getImageUrl()).error(R.drawable.ic_baseline_explore_24).into(holder.placelogo);
+        Glide.with(context).load(list.get(position).getImageUrl()).error(R.drawable.ic_baseline_explore_24).fitCenter().into(holder.placelogo);
 
         holder.PlaceCard.setOnClickListener(new View.OnClickListener() {
             @Override

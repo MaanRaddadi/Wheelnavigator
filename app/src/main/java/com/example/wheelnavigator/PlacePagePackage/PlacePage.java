@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.wifi.rtt.WifiRttManager;
 import android.os.Bundle;
@@ -32,17 +33,18 @@ public class PlacePage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<ImgModel> list;
     private TextView PlaceName;
-    private ImageView PlaceLogo;
+    private ImageView PlaceLogo , applicationRatingIcon;
     private ImgAdapter adapter;
     private Button WriteFeedback;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Place Requests");
     private DatabaseReference ref, Imgref;
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_page);
 
-
+        //Catch Crn Value from another Class
         String value = "1";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -54,10 +56,13 @@ public class PlacePage extends AppCompatActivity {
         PlaceName = findViewById(R.id.PagePlaceName);
         PlaceLogo = findViewById(R.id.PagePlaceLogo);
 
-
-
-
+       //set ref to "Place Requests" -----> "Crn" for the choosen place
         ref =  mDatabase.child(value);
+
+
+
+
+
 
         ref.child("Name").addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,19 +96,15 @@ public class PlacePage extends AppCompatActivity {
         });
 
 
-
+//Place page Recycler View
                 recyclerView = findViewById(R.id.PicRecyclerview);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
+        recyclerView.setLayoutManager(  new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             list = new ArrayList<>();
             adapter = new ImgAdapter(this , list);
         recyclerView.setAdapter(adapter);
 
 
-
+//Loading place pictures from firebase
     Imgref= mDatabase.child(value).child("Pictures");
 
             Imgref.addValueEventListener(new ValueEventListener() {
@@ -121,6 +122,36 @@ public class PlacePage extends AppCompatActivity {
 
         }
     });
+
+        //Setting the application rating icon inside the place page
+        applicationRatingIcon = findViewById(R.id.ApplicationRatingIcon);
+
+        ref.child("ApplicationRatingScore").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(Integer.valueOf(snapshot.getValue().toString()) >= 30){
+                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_green);
+                }
+                if(Integer.valueOf(snapshot.getValue().toString()) >= 20&& Integer.valueOf(snapshot.getValue().toString()) < 30){
+                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_yellew);
+                }
+                if(Integer.valueOf(snapshot.getValue().toString()) >= 10 && Integer.valueOf(snapshot.getValue().toString()) < 20){
+                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_orange);
+                }
+                if(Integer.valueOf(snapshot.getValue().toString()) < 10 ){
+                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_red);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
 }
 }
 
