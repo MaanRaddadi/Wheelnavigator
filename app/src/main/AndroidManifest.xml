@@ -30,7 +30,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".PlacePagePackage.usrfeedback"
+            android:name=".UserFeedback.usrfeedback"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

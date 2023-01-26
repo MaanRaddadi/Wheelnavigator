@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlacePagePackage.usrfeedback"
+    tools:context=".UserFeedback.usrfeedback"
     app:cardBackgroundColor="@color/LightSkyBlue">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         </androidx.cardview.widget.CardView>
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/userRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -59,6 +59,19 @@
             android:layout_marginBottom="90dp"
             android:text="Post Feedback"
             android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/ratingTextValue"
+            android:layout_width="237dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="79dp"
+            android:layout_marginBottom="217dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:background="@color/LightGrey"
+            android:text="TextView" />
 
 
     </RelativeLayout>

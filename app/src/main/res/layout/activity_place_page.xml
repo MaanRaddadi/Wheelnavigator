@@ -8,13 +8,13 @@
     tools:context=".PlacePagePackage.PlacePage">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/White"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="390dp"
+        android:layout_height="710dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/White">
 
 
         <TextView
@@ -47,10 +47,9 @@
             android:layout_height="273dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="161dp"
-            android:scrollbars="horizontal"
-           />
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="147dp"
+            android:scrollbars="horizontal" />
 
         <Button
             android:id="@+id/WriteFeedBack"
@@ -58,10 +57,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="0dp"
             android:text="Write a Feedback"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false" />
 
         <ImageView
             android:id="@+id/ApplicationRatingIcon"
@@ -72,6 +71,46 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="3dp"
             app:srcCompat="@drawable/ic_baseline_accessible_24_default" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="-24dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="80dp"
+            android:isIndicator="true"
+            android:numStars="6"
+            android:scaleX="0.5"
+        android:rating="4.57"
+            android:scaleY="0.5"
+
+            android:theme="@style/RatingBar" />
+
+        <TextView
+            android:id="@+id/RatingValue"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="134dp"
+            android:layout_marginTop="48dp"
+            android:text="4.56"
+            android:textSize="15sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feedbackRecyclerview"
+            android:layout_width="380dp"
+            android:layout_height="224dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="426dp"
+            android:layout_marginBottom="89dp" />
     </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
