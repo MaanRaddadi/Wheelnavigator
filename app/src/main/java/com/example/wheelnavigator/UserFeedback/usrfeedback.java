@@ -82,11 +82,40 @@ public class usrfeedback extends AppCompatActivity {
     }
 
 
+
     private void CreateUsrFeedback (String FeedbackTxt , float RatingValue){
         DatabaseReference mRef = Ref.child(GetplaceCrn()).child(UUID.randomUUID().toString());
         mRef.child("Feedbacktxt").setValue(FeedbackTxt);
         mRef.child("RatingValue").setValue(RatingValue);
         mRef.child("Uid").setValue(Auth.getUid());
+
+
+
+                UsersRef.child(Auth.getUid()).child("Username").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               mRef.child("Username").setValue(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+         UsersRef.child(Auth.getUid()).child("Disability").addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 mRef.child("Disability").setValue(Boolean.valueOf(snapshot.getValue().toString()));
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+         });
 
 
         Toast.makeText(this , "Feedback has been Sent", Toast.LENGTH_SHORT).show();

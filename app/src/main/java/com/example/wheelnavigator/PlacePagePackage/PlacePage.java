@@ -11,16 +11,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.wheelnavigator.Admin.ImgAdapter;
 import com.example.wheelnavigator.Admin.ImgModel;
-import com.example.wheelnavigator.Recommended.PlaceDataModle;
 import com.example.wheelnavigator.UserFeedback.usrFeedbackDataModel;
 import com.example.wheelnavigator.UserFeedback.usrfeedback;
 import com.example.wheelnavigator.R;
 import com.example.wheelnavigator.UserFeedback.usrfeedbackadapter;
+import com.example.wheelnavigator.usrfeedbackpage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,13 +36,14 @@ public class PlacePage extends AppCompatActivity {
     private ArrayList<usrFeedbackDataModel> feedbacklist;
     private ArrayList<ImgModel> list;
     private usrfeedbackadapter feedbackadapter;
-    private TextView PlaceName;
+    private TextView PlaceName , Ratingvlauetxt , ServicesDetails;
     private ImageView PlaceLogo , applicationRatingIcon;
     private ImgAdapter adapter;
-    private Button WriteFeedback;
+    private Button WriteFeedback , ViewFeedbacks;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Place Requests");
     private DatabaseReference feedbackRef = FirebaseDatabase.getInstance().getReference("UserFeedbacks");
     private DatabaseReference ref, Imgref;
+    private RatingBar usrRatingbar;
     @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,20 @@ public class PlacePage extends AppCompatActivity {
             }
         });
 
+        ServicesDetails = findViewById(R.id.ServicesDetails);
+
+        ref.child("Details of Services").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ServicesDetails.setText(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 //Place page Recycler View
                 recyclerView = findViewById(R.id.PicRecyclerview);
@@ -136,44 +153,20 @@ public class PlacePage extends AppCompatActivity {
         ref.child("ApplicationRatingScore").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(Integer.valueOf(snapshot.getValue().toString()) >= 30){
-                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_green);
-                }
-                if(Integer.valueOf(snapshot.getValue().toString()) >= 20&& Integer.valueOf(snapshot.getValue().toString()) < 30){
-                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_yellew);
-                }
-                if(Integer.valueOf(snapshot.getValue().toString()) >= 10 && Integer.valueOf(snapshot.getValue().toString()) < 20){
-                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_orange);
-                }
-                if(Integer.valueOf(snapshot.getValue().toString()) < 10 ){
-                    applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_red);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        feedbackrecyclerview = findViewById(R.id.feedbackRecyclerview);
-
-        feedbackrecyclerview.setLayoutManager( new LinearLayoutManager(this));
-        feedbacklist = new ArrayList<>();
-        feedbackadapter = new usrfeedbackadapter(this , feedbacklist);
-        feedbackrecyclerview.setAdapter(feedbackadapter);
-
-        feedbackRef.child(value).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                    if (snapshot.exists()) {
-                        usrFeedbackDataModel feedback = dataSnapshot.getValue(usrFeedbackDataModel.class);
-                        feedbacklist.add(feedback);
+                if(snapshot.exists()) {
+                    if (Integer.valueOf(snapshot.getValue().toString()) >= 26) {
+                        applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_green);
+                    }
+                    if (Integer.valueOf(snapshot.getValue().toString()) >= 16 && Integer.valueOf(snapshot.getValue().toString()) < 26) {
+                        applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_yellew);
+                    }
+                    if (Integer.valueOf(snapshot.getValue().toString()) >= 6 && Integer.valueOf(snapshot.getValue().toString()) < 16) {
+                        applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_orange);
+                    }
+                    if (Integer.valueOf(snapshot.getValue().toString()) < 6) {
+                        applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_red);
                     }
                 }
-                feedbackadapter.notifyDataSetChanged();
             }
 
             @Override
@@ -181,11 +174,73 @@ public class PlacePage extends AppCompatActivity {
 
             }
         });
+
+        ViewFeedbacks = findViewById(R.id.ViewFeedbacks);
+        String finalValue1 = value;
+        ViewFeedbacks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PlacePage.this, usrfeedbackpage.class);
+                intent.putExtra("Crn", finalValue1);
+                startActivity(intent);
+            }
+        });
+
+  usrRatingbar = findViewById(R.id.ratingBar);
+  Ratingvlauetxt = findViewById(R.id.RatingValue);
+        CalcFeedbackAvg(value);
+
+
+}
+
+private void CalcFeedbackAvg (String Crn) {
+    ArrayList<usrFeedbackDataModel> avg = new ArrayList<usrFeedbackDataModel>();
+
+
+
+        feedbackRef.child(Crn).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Float sum = 0.0f;
+                avg.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (snapshot.exists()) {
+                        usrFeedbackDataModel feedback = dataSnapshot.getValue(usrFeedbackDataModel.class);
+
+
+                         Float rating = Float.valueOf(feedback.getRatingValue());
+
+
+                         sum = sum + rating ;
+
+                         avg.add(feedback);
+
+                    }
+
+                }
+                float totalAvg = sum / avg.size();
+                usrRatingbar.setRating(totalAvg);
+                Ratingvlauetxt.setText(String.valueOf(totalAvg));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
 
 
 
 
 }
+
+
 }
 
 

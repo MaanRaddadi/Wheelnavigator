@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         tools:context=".CountributeActivity"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@color/AliceBlue">
 
 
 
@@ -50,8 +51,23 @@
         android:minHeight="48dp"
         android:hint="Place Email :"
         />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Choose your place type from the list :"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/dynamic_spinner"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+
+           />
     <TextView
-        android:id="@+id/textView2"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -68,7 +84,27 @@
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck"
             />
-    <TextView
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Please Upload a logo for your place :"
+            android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/LogoChoose"
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_baseline_image_24" />
+
+        <Button
+            android:id="@+id/LogoUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload"
+            android:textAllCaps="false" ></Button>
+
+        <TextView
         android:id="@+id/UploadText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,25 +125,6 @@
             android:layout_height="wrap_content"
             android:text="Upload"
             android:textAllCaps="false"></Button>
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="Please Upload a logo for your place :"
-            android:textStyle="bold"/>
-        <ImageView
-            android:id="@+id/LogoChoose"
-            android:layout_width="110dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/ic_baseline_image_24" />
-
-        <Button
-            android:id="@+id/LogoUpload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload"
-            android:textAllCaps="false" ></Button>
 
 
 

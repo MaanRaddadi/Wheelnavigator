@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.viewRequest">
+    tools:context=".Admin.viewRequest"
+    android:background="@color/AliceBlue">
 
     <Button
         android:id="@+id/DeclineBtn"
@@ -23,7 +24,7 @@
 
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
-        app:cardBackgroundColor="@color/CornflowerBlue"
+        app:cardBackgroundColor="@color/LightSteelBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -54,7 +55,7 @@
 
         android:layout_marginStart="32dp"
         android:layout_marginTop="14dp"
-        app:cardBackgroundColor="@color/CornflowerBlue"
+        app:cardBackgroundColor="@color/LightSteelBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
@@ -84,7 +85,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="68dp"
-        app:cardBackgroundColor="@color/CornflowerBlue"
+        app:cardBackgroundColor="@color/LightSteelBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
@@ -112,7 +113,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/CornflowerBlue"
+        app:cardBackgroundColor="@color/LightSteelBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
@@ -143,7 +144,7 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="24dp"
-        app:cardBackgroundColor="@color/CornflowerBlue"
+        app:cardBackgroundColor="@color/LightSteelBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView3">
@@ -176,6 +177,7 @@
         android:layout_marginTop="88dp"
         android:layout_marginEnd="111dp"
         android:text="View Place Images"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -187,12 +189,12 @@
 
         android:layout_height="41dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="272dp"
-        app:cardBackgroundColor="@color/CornflowerBlue"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/LightSteelBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3">
+        app:layout_constraintTop_toBottomOf="@+id/cardView4">
 
         <TextView
             android:id="@+id/textView7"

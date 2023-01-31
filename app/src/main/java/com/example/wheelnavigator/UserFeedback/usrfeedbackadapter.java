@@ -34,7 +34,7 @@ public class usrfeedbackadapter extends RecyclerView.Adapter<usrfeedbackadapter.
             super(itemView);
             Username =  (TextView) itemView.findViewById(R.id.FeedbackCardUsername);
             Feedbacktxt = (TextView)  itemView.findViewById(R.id.feedbacktext);
-            RatingValue = (TextView) itemView.findViewById(R.id.ratingvalue2);
+            RatingValue = (TextView) itemView.findViewById(R.id.RatingValue2);
             ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar2);
             disabilityicon = (ImageView) itemView.findViewById(R.id.wheelchairicon);
         }

@@ -3,12 +3,36 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string-array name="SpecialServices">
-        <item></item>
-        <item>Wheelchair Ramps</item>
-        <item>Wheelchair Wc</item>
-        <item>Wheelchair Parkings</item>
-        <item>Wheelchair Elevators </item>
+    <string-array name="PlaceTypeArray">
+        <item>Restaurant</item>
+        <item>Hospital</item>
+        <item>Gym</item>
+        <item>Coffee Shop</item>
+        <item>Park</item>
+        <item>Mall</item>
+        <item>Super market</item>
+        <item>Mosque</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="RatingArray">
+
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+
+    </string-array>
+    <string-array name="RatingArray2">
+
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+
+
+
     </string-array>
     <string name="title_activity_maps">MapsActivity</string>
 

@@ -16,6 +16,20 @@
         android:theme="@style/Theme.Wheelnavigator"
         tools:targetApi="31">
         <activity
+            android:name=".usrfeedbackpage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".usrfeedbackspage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Creat_RatingCrn"
             android:exported="false">
             <meta-data

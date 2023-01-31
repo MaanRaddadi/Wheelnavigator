@@ -15,8 +15,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,141 +28,87 @@ import android.annotation.SuppressLint;
 import android.widget.Toast;
 
 public class Create_Rating extends AppCompatActivity {
-            int  score ;
-            TextView tvNumbers1,tvNumbers2,tvNumbers3,tvNumbers4,tvNumbers5,tvNumbers6,tvNumbers7,tvNumbers8 , OverallScore;
+            int  sumscore ;
+            TextView Scoretxt;
             Button ScoreBtn , SendRating;
-            NumberPicker numberPicker1,numberPicker2,numberPicker3,numberPicker4,numberPicker5,numberPicker6,numberPicker7,numberPicker8;
+            Spinner RS1 , RS2 ,RS3 ,RS4 , RS5 , RS6,RS7 ,  RS8 , RS9;
+
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Place Requests");
-    private DatabaseReference Ref ;
+
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.createrating);
-
-                tvNumbers1=findViewById(R.id.tvNumbers1);
-                numberPicker1=findViewById(R.id.numberPicker1);
-                numberPicker1.setMinValue(0);
-                numberPicker1.setMaxValue(5);
-                tvNumbers1.setText(String.format("parking: %S",numberPicker1.getValue()));
-
-                numberPicker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers1.setText(String.format("parking: %s",newVal));
-                    }
-                });
-
-                tvNumbers2=findViewById(R.id.tvNumbers2);
-                numberPicker2=findViewById(R.id.numberPicker2);
-                numberPicker2.setMinValue(0);
-                numberPicker2.setMaxValue(5);
-                tvNumbers2.setText(String.format("Automatic opening gates: %S",numberPicker2.getValue()));
-
-                numberPicker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers2.setText(String.format("Automatic opening gates: %s",newVal));
-                    }
-                });
-                tvNumbers3=findViewById(R.id.tvNumbers3);
-                numberPicker3=findViewById(R.id.numberPicker3);
-                numberPicker3.setMinValue(0);
-                numberPicker3.setMaxValue(5);
-                tvNumbers3.setText(String.format("bathroom: %S",numberPicker3.getValue()));
-                numberPicker3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers3.setText(String.format("bathroom: %s",newVal));
-                    }
-                });
-                tvNumbers4=findViewById(R.id.tvNumbers4);
-                numberPicker4=findViewById(R.id.numberPicker4);
-                numberPicker4.setMinValue(0);
-                numberPicker4.setMaxValue(5);
-                tvNumbers4.setText(String.format("elevators: %s",numberPicker4.getValue()));
-                numberPicker4.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers4.setText(String.format("elevators: %s",newVal));
-                    }
-                });
-                tvNumbers5=findViewById(R.id.tvNumbers5);
-                numberPicker5=findViewById(R.id.numberPicker5);
-                numberPicker5.setMinValue(0);
-                numberPicker5.setMaxValue(5);
-                tvNumbers5.setText(String.format("Tables & chairs: %s",numberPicker5.getValue()));
-                numberPicker5.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers5.setText(String.format("Tables & chairs: %s",newVal));
-                    }
-                });
-                tvNumbers6=findViewById(R.id.tvNumbers6);
-                numberPicker6=findViewById(R.id.numberPicker6);
-                numberPicker6.setMinValue(0);
-                numberPicker6.setMaxValue(5);
-                tvNumbers6.setText(String.format("Signs: %s",numberPicker6.getValue()));
-                numberPicker6.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers6.setText(String.format("Signs: %s",newVal));
-                    }
-                });
-                tvNumbers7=findViewById(R.id.tvNumbers7);
-                numberPicker7=findViewById(R.id.numberPicker7);
-                numberPicker7.setMinValue(0);
-                numberPicker7.setMaxValue(5);
-                tvNumbers7.setText(String.format("Stairs Railings: %s",numberPicker7.getValue()));
-                numberPicker7.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers7.setText(String.format("Stairs Railings: %s",newVal));
-                    }
-                });
-                tvNumbers8=findViewById(R.id.tvNumbers8);
-                numberPicker8=findViewById(R.id.numberPicker8);
-                numberPicker8.setMinValue(0);
-                numberPicker8.setMaxValue(5);
-                tvNumbers8.setText(String.format("Hallway railings: %s",numberPicker8.getValue()));
-                numberPicker8.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        tvNumbers8.setText(String.format("Hallway railings: %s",newVal));
-                    }
-                });
-                OverallScore = findViewById(R.id.Overalltotal);
-                ScoreBtn = findViewById(R.id.showscore);
-                ScoreBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        score = numberPicker1.getValue() + numberPicker2.getValue()+ numberPicker3.getValue()+ numberPicker4.getValue()+ numberPicker5.getValue()+ numberPicker6.getValue()+ numberPicker7.getValue()+ numberPicker8.getValue();
-                        OverallScore.setText(String.valueOf(score));
-                    }
-                });
                 String value = "1";
                 Bundle extras = getIntent().getExtras();
                 if (extras != null) {
                     value = extras.getString("Crn");
                 }
-
+                RS1 = findViewById(R.id.RS1);
+                RS2 = findViewById(R.id.RS2);
+                RS3 = findViewById(R.id.RS3);
+                RS4 = findViewById(R.id.RS4);
+                RS5 = findViewById(R.id.RS5);
+                RS6 = findViewById(R.id.RS6);
+                RS7 = findViewById(R.id.RS7);
+                RS8 = findViewById(R.id.RS8);
+                RS9 = findViewById(R.id.RS9);
+                ScoreBtn = findViewById(R.id.showscore);
+                Scoretxt = findViewById(R.id.Overall);
                 SendRating = findViewById(R.id.SendRating);
-                Ref = mDatabase.child(value);
+
+
+                ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                        .createFromResource(this, R.array.RatingArray,
+                                android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> staticAdapter2 = ArrayAdapter
+                        .createFromResource(this, R.array.RatingArray2,
+                                android.R.layout.simple_spinner_item);
+
+                staticAdapter2
+                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                staticAdapter
+                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+               RS1.setAdapter(staticAdapter);
+                RS2.setAdapter(staticAdapter2);
+                RS3.setAdapter(staticAdapter2);
+                RS4.setAdapter(staticAdapter);
+                RS5.setAdapter(staticAdapter2);
+                RS6.setAdapter(staticAdapter2);
+                RS7.setAdapter(staticAdapter2);
+                RS8.setAdapter(staticAdapter2);
+                RS9.setAdapter(staticAdapter2);
+
+
+
+
+
+
+
+
+
+
+
+                ScoreBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        sumscore = 0 ;
+                        sumscore = Integer.valueOf(RS1.getSelectedItem().toString()) + Integer.valueOf(RS2.getSelectedItem().toString())+ Integer.valueOf(RS3.getSelectedItem().toString())+ Integer.valueOf(RS4.getSelectedItem().toString())+ Integer.valueOf(RS5.getSelectedItem().toString())+ Integer.valueOf(RS6.getSelectedItem().toString())+ Integer.valueOf(RS7.getSelectedItem().toString())+ Integer.valueOf(RS8.getSelectedItem().toString())+ Integer.valueOf(RS9.getSelectedItem().toString()) ;
+
+                        Scoretxt.setText(String.valueOf(sumscore));
+
+                    }
+                });
+
+
+                String finalValue = value;
                 SendRating.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Ref.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Ref.child("ApplicationRatingScore").setValue(score);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                        Toast.makeText(Create_Rating.this , "Application Rating has been sent", Toast.LENGTH_SHORT).show();
+                        mDatabase.child(finalValue).child("ApplicationRatingScore").setValue(sumscore);
+                        Toast.makeText(Create_Rating.this , "Rating has been Sent ", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Create_Rating.this , AdminPanel.class));
                     }
                 });
@@ -168,7 +117,13 @@ public class Create_Rating extends AppCompatActivity {
 
 
 
+
+
+
+
             }
+
+
 
 
         }

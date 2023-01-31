@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserFeedback.usrfeedback"
-    app:cardBackgroundColor="@color/LightSkyBlue">
+    app:cardBackgroundColor="@color/white">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/AliceBlue"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
@@ -24,7 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="14dp"
             android:layout_marginTop="45dp"
-            app:cardBackgroundColor="@color/LightGrey" >
+            app:cardBackgroundColor="@color/LightSteelBlue" >
 
             <EditText
                 android:id="@+id/DescriptionOfServices"
@@ -70,8 +70,8 @@
             android:layout_marginBottom="217dp"
             android:gravity="center"
             android:textSize="20sp"
-            android:background="@color/LightGrey"
-            android:text="TextView" />
+            android:background="@color/LightSteelBlue"
+            android:text="" />
 
 
     </RelativeLayout>

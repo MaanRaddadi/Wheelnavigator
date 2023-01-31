@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -31,7 +34,7 @@ import java.util.ArrayList;
 public class CountributeActivity extends AppCompatActivity {
         private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Place Requests");
         private DatabaseReference mDatabaseImg ;
-        private DatabaseReference mDatabaseLogo ;
+        private DatabaseReference mDatabaseLogo ; ;
         private StorageReference mStorage = FirebaseStorage.getInstance().getReference("Uploads");
         private FirebaseAuth Auth = FirebaseAuth.getInstance();
 
@@ -143,6 +146,17 @@ public class CountributeActivity extends AppCompatActivity {
             });
 
 
+            Spinner Spinner = (Spinner) findViewById(R.id.dynamic_spinner);
+
+            ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                    .createFromResource(this, R.array.PlaceTypeArray,
+                            android.R.layout.simple_spinner_item);
+
+            staticAdapter
+                    .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+            Spinner.setAdapter(staticAdapter);
 
 
 
@@ -160,7 +174,7 @@ public class CountributeActivity extends AppCompatActivity {
                     final String EmailTxt = Email.getText().toString();
                     final String DoPTxt = DoP.getText().toString();
 
-                    if (PlaceNameTxt.isEmpty() || PlaceTeleTxt.isEmpty() || CrnTxt.isEmpty() || EmailTxt.isEmpty() || DoPTxt.isEmpty()) {
+                    if (PlaceNameTxt.isEmpty() || PlaceTeleTxt.isEmpty() || CrnTxt.isEmpty() || EmailTxt.isEmpty() || DoPTxt.isEmpty() || Spinner.getSelectedItem() == null) {
                         Toast.makeText(CountributeActivity.this, "Please fill out all the fields", Toast.LENGTH_LONG).show();
                     } else {
                         mDatabase.child(CrnTxt).child("Name").setValue(PlaceNameTxt);
@@ -169,6 +183,9 @@ public class CountributeActivity extends AppCompatActivity {
                         mDatabase.child(CrnTxt).child("Email").setValue(EmailTxt);
                         mDatabase.child(CrnTxt).child("Details of Services").setValue(DoPTxt);
                         mDatabase.child(CrnTxt).child("Approved").setValue(Approved);
+                        mDatabase.child(CrnTxt).child("Place Type").setValue(Spinner.getSelectedItem().toString());
+
+
 
                         Toast.makeText(CountributeActivity.this, "Request has been Sent", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(CountributeActivity.this, MainActivity.class));
@@ -176,6 +193,10 @@ public class CountributeActivity extends AppCompatActivity {
                     }
                 }
             });
+
+
+
+
 
         }
 
@@ -226,7 +247,7 @@ public class CountributeActivity extends AppCompatActivity {
         }
     private void uploadLogoToFirebase(Uri uri, String Crn){
 
-        mDatabaseLogo = mDatabase.child(Crn);
+        mDatabaseLogo = FirebaseDatabase.getInstance().getReference("Place Requests").child(Crn);
         final StorageReference fileRef = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
