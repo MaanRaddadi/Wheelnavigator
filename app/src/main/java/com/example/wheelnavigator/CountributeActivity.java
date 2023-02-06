@@ -42,7 +42,7 @@ public class CountributeActivity extends AppCompatActivity {
 
         private Button SendRequestBtn;
         private ImageView imageView , ChooseLogo;
-        private Button Uploadbtn , UploadLogo;
+        private Button Uploadbtn , UploadLogo , ChooseLocation;
 
         private EditText Placename;
         private EditText Telephonenum;
@@ -69,7 +69,7 @@ public class CountributeActivity extends AppCompatActivity {
 
             Uploadbtn = findViewById(R.id.Upload);
             UploadLogo= findViewById(R.id.LogoUpload);
-
+            ChooseLocation = findViewById(R.id.ChooseLocation);
 
 
 
@@ -81,8 +81,12 @@ public class CountributeActivity extends AppCompatActivity {
 
 
 
-
-
+           ChooseLocation.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   startActivity(new Intent(CountributeActivity.this , MapsActivity.class));
+               }
+           });
 
 
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +187,7 @@ public class CountributeActivity extends AppCompatActivity {
                         mDatabase.child(CrnTxt).child("Email").setValue(EmailTxt);
                         mDatabase.child(CrnTxt).child("Details of Services").setValue(DoPTxt);
                         mDatabase.child(CrnTxt).child("Approved").setValue(Approved);
-                        mDatabase.child(CrnTxt).child("Place Type").setValue(Spinner.getSelectedItem().toString());
+                        mDatabase.child(CrnTxt).child("PlaceType").setValue(Spinner.getSelectedItem().toString());
 
 
 

@@ -1,18 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ExploreActivity"
-    >
+    android:background="@color/AliceBlue">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is Explore Page"
-        android:layout_gravity="center"
-        android:textSize="26dp"
-        android:textStyle="bold"/>
 
-</FrameLayout>
+    <SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="380dp"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="9dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="9dp"
+        android:background="@color/LightSteelBlue"
+        android:gravity="center"
+        android:queryHint="Enter a place name" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/filtercard"
+        android:layout_width="405dp"
+        android:layout_height="49.5dp"
+        android:layout_below="@+id/search_bar"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/LightSteelBlue"
+        app:cardCornerRadius="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/RestaurantFilter"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                app:srcCompat="@drawable/ic_baseline_restaurant_24" />
+
+            <ImageView
+                android:id="@+id/hospitalFilter"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                app:srcCompat="@drawable/ic_baseline_local_hospital_24" />
+
+            <ImageView
+                android:id="@+id/Gymfilter"
+                android:layout_width="63dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                app:srcCompat="@drawable/ic_baseline_fitness_center_24" />
+
+            <ImageView
+                android:id="@+id/pharmafilter"
+                android:layout_width="62dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                app:srcCompat="@drawable/ic_baseline_local_pharmacy_24" />
+
+            <ImageView
+                android:id="@+id/Coffeshopfilter"
+                android:layout_width="63dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
+                app:srcCompat="@drawable/ic_baseline_coffee_24" />
+
+            <ImageView
+                android:id="@+id/Mosquefilter"
+                android:layout_width="66dp"
+                android:layout_height="match_parent"
+
+                app:srcCompat="@drawable/ic_baseline_museum_24" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ExploreRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_below="@+id/filtercard"
+
+        android:layout_marginTop="34dp"
+
+        />
+</RelativeLayout>

@@ -4,6 +4,15 @@ public class PlaceDataModle {
     String Name , imageUrl , Crn;
     boolean Approved ;
     int ApplicationRatingScore;
+    String PlaceType;
+
+    public String getPlaceType() {
+        return PlaceType;
+    }
+
+    public void setPlaceType(String placeType) {
+        this.PlaceType = placeType;
+    }
 
     public int getApplicationRatingScore() {
         return ApplicationRatingScore;
@@ -34,12 +43,13 @@ public class PlaceDataModle {
         Approved = approved;
     }
 
-    public PlaceDataModle(String name, String imageUrl, boolean Approved , String Crn, int ApplicationRatingScore) {
+    public PlaceDataModle(String name, String imageUrl, boolean Approved , String Crn, int ApplicationRatingScore ,String PlaceType) {
         Name = name;
         this.imageUrl = imageUrl;
         this.Approved=Approved;
         this.Crn = Crn;
         this.ApplicationRatingScore=ApplicationRatingScore;
+        this.PlaceType = PlaceType;
 
 
     }

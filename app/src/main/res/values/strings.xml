@@ -12,8 +12,10 @@
         <item>Mall</item>
         <item>Super market</item>
         <item>Mosque</item>
+        <item>Pharmacy</item>
         <item>Other</item>
     </string-array>
+
     <string-array name="RatingArray">
 
         <item>0</item>
@@ -30,7 +32,6 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
-
 
 
     </string-array>
