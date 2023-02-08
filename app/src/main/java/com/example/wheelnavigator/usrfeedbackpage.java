@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.wheelnavigator.UserFeedback.usrFeedbackDataModel;
 import com.example.wheelnavigator.UserFeedback.usrfeedbackadapter;
@@ -44,13 +45,20 @@ public class usrfeedbackpage extends AppCompatActivity {
 
         feedbackrecyclerview.setAdapter(feedbackadapter);
 
-        feedbackRef.child(value).addValueEventListener(new ValueEventListener() {
+        String finalValue = value;
+
+        feedbackRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     if (snapshot.exists()) {
                         usrFeedbackDataModel feedback = dataSnapshot.getValue(usrFeedbackDataModel.class);
-                        feedbacklist.add(feedback);
+
+
+                        if (feedback.getCrn().equalsIgnoreCase(finalValue) == true ){
+                            feedbacklist.add(feedback);
+                        }
+
                     }
                 }
                 feedbackadapter.notifyDataSetChanged();
@@ -61,5 +69,6 @@ public class usrfeedbackpage extends AppCompatActivity {
 
             }
         });
+
     }
 }

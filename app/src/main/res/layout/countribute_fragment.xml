@@ -22,7 +22,8 @@
         android:hint="Place Name :"
         android:gravity="center"
         android:layout_margin="3dp"
-        android:minHeight="48dp"/>
+        android:minHeight="48dp"
+        android:freezesText="true"/>
 
     <EditText
         android:id="@+id/PlaceTelephone"

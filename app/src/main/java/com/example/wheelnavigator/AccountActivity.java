@@ -33,10 +33,10 @@ private TextView AccountUsername;
 private TextView AccountEmail;
 private DatabaseReference ref;
 private Button Signout ;
-
-
-
-
+    private DatabaseReference feedbackRef = FirebaseDatabase.getInstance().getReference("UserFeedbacks");
+private RecyclerView FeedbackRecyclerView;
+    private usrfeedbackadapter feedbackadapter;
+    private ArrayList<usrFeedbackDataModel> feedbacklist;
 
 
 
@@ -81,6 +81,37 @@ private Button Signout ;
                 startActivity(new Intent(AccountActivity.this , MainActivity.class));
             }
         });
+        FeedbackRecyclerView = findViewById(R.id.usrFeedbacklist);
+        FeedbackRecyclerView.setLayoutManager( new LinearLayoutManager(this));
+        feedbacklist = new ArrayList<>();
+        feedbackadapter = new usrfeedbackadapter(this , feedbacklist);
+
+        FeedbackRecyclerView.setAdapter(feedbackadapter);
+
+        feedbackRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    if (snapshot.exists()) {
+                            usrFeedbackDataModel feedback = dataSnapshot.getValue(usrFeedbackDataModel.class);
+
+                            if(feedback.getUid().equalsIgnoreCase(Auth.getCurrentUser().getUid().toString()) == true && feedback.getUid() != null) {
+                                feedbacklist.add(feedback);
+                            }
+                        }
+                    }
+                feedbackadapter.notifyDataSetChanged();
+                }
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
 

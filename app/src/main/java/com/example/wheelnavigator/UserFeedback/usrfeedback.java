@@ -70,7 +70,7 @@ public class usrfeedback extends AppCompatActivity {
                   Toast.makeText(usrfeedback.this , "Please write your feedback ", Toast.LENGTH_SHORT).show();
               else {
                   CreateUsrFeedback(FeedbackText.getText().toString(), ratingBar.getRating());
-                  startActivity(new Intent(usrfeedback.this, RecommendedActivity.class));
+                  onBackPressed();
               }
 
           }
@@ -84,17 +84,17 @@ public class usrfeedback extends AppCompatActivity {
 
 
     private void CreateUsrFeedback (String FeedbackTxt , float RatingValue){
-        DatabaseReference mRef = Ref.child(GetplaceCrn()).child(UUID.randomUUID().toString());
+        DatabaseReference mRef = Ref.child(UUID.randomUUID().toString());
         mRef.child("Feedbacktxt").setValue(FeedbackTxt);
         mRef.child("RatingValue").setValue(RatingValue);
         mRef.child("Uid").setValue(Auth.getUid());
-
+        mRef.child("Crn").setValue(GetplaceCrn());
 
 
                 UsersRef.child(Auth.getUid()).child("Username").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               mRef.child("Username").setValue(snapshot.getValue().toString());
+                mRef.child("Username").setValue(snapshot.getValue().toString());
             }
 
             @Override
@@ -119,7 +119,7 @@ public class usrfeedback extends AppCompatActivity {
 
 
         Toast.makeText(this , "Feedback has been Sent", Toast.LENGTH_SHORT).show();
-
+        finish();
 
     }
 

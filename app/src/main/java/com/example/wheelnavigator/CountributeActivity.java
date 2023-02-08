@@ -1,7 +1,9 @@
 package com.example.wheelnavigator;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.location.LocationRequest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,13 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wheelnavigator.Admin.ImgModel;
 import com.example.wheelnavigator.Registration.Login;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +43,7 @@ public class CountributeActivity extends AppCompatActivity {
         private StorageReference mStorage = FirebaseStorage.getInstance().getReference("Uploads");
         private FirebaseAuth Auth = FirebaseAuth.getInstance();
 
-
+    private LocationRequest locationRequest;
 
         private Button SendRequestBtn;
         private ImageView imageView , ChooseLogo;
@@ -51,15 +56,19 @@ public class CountributeActivity extends AppCompatActivity {
         private EditText DoP;
         public Boolean Approved = false;
 
-
+       private double Lat;
+        private double  Lng;
         private Uri imageUri , logoUri;
 
+      private    String s1 = "f";
 
-
+        @SuppressLint("MissingInflatedId")
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.countribute_fragment);
+
+
 
 
             SendRequestBtn = findViewById(R.id.Send_Request);
@@ -72,7 +81,6 @@ public class CountributeActivity extends AppCompatActivity {
             ChooseLocation = findViewById(R.id.ChooseLocation);
 
 
-
             Placename = findViewById(R.id.PlaceName);
             Telephonenum = findViewById(R.id.PlaceTelephone);
             Crn = findViewById(R.id.commercial_registration_number);
@@ -81,10 +89,12 @@ public class CountributeActivity extends AppCompatActivity {
 
 
 
+
            ChooseLocation.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   startActivity(new Intent(CountributeActivity.this , MapsActivity.class));
+                   Intent mapIntent = new Intent(CountributeActivity.this , MapsActivity.class);
+                    startActivityForResult(mapIntent , 3);
                }
            });
 
@@ -188,7 +198,8 @@ public class CountributeActivity extends AppCompatActivity {
                         mDatabase.child(CrnTxt).child("Details of Services").setValue(DoPTxt);
                         mDatabase.child(CrnTxt).child("Approved").setValue(Approved);
                         mDatabase.child(CrnTxt).child("PlaceType").setValue(Spinner.getSelectedItem().toString());
-
+                        mDatabase.child(CrnTxt).child("PlaceLat").setValue(Lat);
+                        mDatabase.child(CrnTxt).child("PlaceLng").setValue(Lng);
 
 
                         Toast.makeText(CountributeActivity.this, "Request has been Sent", Toast.LENGTH_LONG).show();
@@ -197,6 +208,11 @@ public class CountributeActivity extends AppCompatActivity {
                     }
                 }
             });
+
+
+
+
+
 
 
 
@@ -221,6 +237,11 @@ public class CountributeActivity extends AppCompatActivity {
                 logoUri = data.getData();
                 ChooseLogo.setImageURI(logoUri);
 
+            }
+            if(requestCode == 3 && data  != null ){
+             Lat = data.getDoubleExtra("Data1" , 0.0);
+             Lng = data.getDoubleExtra("Data2" , 0.0);
+              Toast.makeText(this , "Lat = "+ Lat + "Lng ="+ Lng , Toast.LENGTH_SHORT).show();
             }
 
 
@@ -293,7 +314,10 @@ public class CountributeActivity extends AppCompatActivity {
 
         }
 
-    }
+
+
+
+}
 
 
 

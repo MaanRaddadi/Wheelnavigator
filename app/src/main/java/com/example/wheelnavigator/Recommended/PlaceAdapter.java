@@ -43,6 +43,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder,  int position) {
              PlaceDataModle place = list.get(position);
              holder.placename.setText(place.getName());
+             holder.DistanceFromCurrent.setText(String.valueOf(place.getDistance() + " Km"));
 
         Glide.with(context).load(list.get(position).getImageUrl()).error(R.drawable.ic_baseline_explore_24).fitCenter().into(holder.placelogo);
 
@@ -75,7 +76,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-          TextView placename;
+          TextView placename , DistanceFromCurrent;
           ImageView placelogo, ApplicationRating;
           CardView PlaceCard;
 
@@ -86,6 +87,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
             placename = (TextView) itemView.findViewById(R.id.CardPlacename);
             PlaceCard = (CardView) itemView.findViewById(R.id.PlaceCard);
             ApplicationRating = (ImageView) itemView.findViewById(R.id.ApplicationRating);
+            DistanceFromCurrent = (TextView) itemView.findViewById(R.id.DistanceFromCurrent);
 
         }
     }

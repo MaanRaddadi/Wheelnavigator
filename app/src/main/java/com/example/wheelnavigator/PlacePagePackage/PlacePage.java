@@ -154,10 +154,13 @@ public class PlacePage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    if (Integer.valueOf(snapshot.getValue().toString()) >= 26) {
+                    if (Integer.valueOf(snapshot.getValue().toString()) >= 27) {
                         applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_green);
                     }
-                    if (Integer.valueOf(snapshot.getValue().toString()) >= 16 && Integer.valueOf(snapshot.getValue().toString()) < 26) {
+                    if(Integer.valueOf(snapshot.getValue().toString()) >= 23 && Integer.valueOf(snapshot.getValue().toString()) < 27){
+                          applicationRatingIcon.setImageResource(R.drawable.baseline_accessible_24_darkgreen);
+                    }
+                    if (Integer.valueOf(snapshot.getValue().toString()) >= 16 && Integer.valueOf(snapshot.getValue().toString()) < 23) {
                         applicationRatingIcon.setImageResource(R.drawable.ic_baseline_accessible_24_yellew);
                     }
                     if (Integer.valueOf(snapshot.getValue().toString()) >= 6 && Integer.valueOf(snapshot.getValue().toString()) < 16) {
@@ -198,23 +201,25 @@ private void CalcFeedbackAvg (String Crn) {
 
 
 
-        feedbackRef.child(Crn).addValueEventListener(new ValueEventListener() {
+        feedbackRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Float sum = 0.0f;
                 avg.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (snapshot.exists()) {
+
                         usrFeedbackDataModel feedback = dataSnapshot.getValue(usrFeedbackDataModel.class);
 
+                        if (feedback.getCrn().equalsIgnoreCase(Crn)) {
+                            Float rating = Float.valueOf(feedback.getRatingValue());
 
-                         Float rating = Float.valueOf(feedback.getRatingValue());
 
+                            sum = sum + rating;
 
-                         sum = sum + rating ;
+                            avg.add(feedback);
 
-                         avg.add(feedback);
-
+                        }
                     }
 
                 }
