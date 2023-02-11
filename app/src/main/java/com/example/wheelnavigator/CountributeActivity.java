@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.LocationRequest;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -22,9 +23,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wheelnavigator.Admin.ImgModel;
+import com.example.wheelnavigator.Recommended.RecommendedActivity;
 import com.example.wheelnavigator.Registration.Login;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +52,8 @@ public class CountributeActivity extends AppCompatActivity {
         private Button SendRequestBtn;
         private ImageView imageView , ChooseLogo;
         private Button Uploadbtn , UploadLogo , ChooseLocation;
-
+    double  wayLatitude ;
+    double   wayLongitude;
         private EditText Placename;
         private EditText Telephonenum;
         private EditText Crn;
@@ -60,14 +65,13 @@ public class CountributeActivity extends AppCompatActivity {
         private double  Lng;
         private Uri imageUri , logoUri;
 
-      private    String s1 = "f";
+
 
         @SuppressLint("MissingInflatedId")
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.countribute_fragment);
-
 
 
 
@@ -87,7 +91,36 @@ public class CountributeActivity extends AppCompatActivity {
             Email = findViewById(R.id.PlaceEmail);
             DoP = findViewById(R.id.DescriptionOfServices);
 
+            BottomNavigationView bottomNavigationView ;
+            bottomNavigationView = findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setSelectedItemId(R.id.Contribute);
+            bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.Recommended: {
+                            Intent intent = new Intent(getApplicationContext(), RecommendedActivity.class);
 
+                            startActivity(intent);
+                            overridePendingTransition(0,0);
+                            return true;
+                        }
+                        case R.id.Explore:
+                            startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
+                            overridePendingTransition(0,0);
+                            return true;
+                        case R.id.Contribute:
+
+                            return true;
+                        case R.id.Account:
+                            startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+                            overridePendingTransition(0,0);
+                            return true;
+
+                    }
+                    return false;
+                }
+            });
 
 
            ChooseLocation.setOnClickListener(new View.OnClickListener() {

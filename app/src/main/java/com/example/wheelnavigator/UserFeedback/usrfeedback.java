@@ -1,5 +1,6 @@
 package com.example.wheelnavigator.UserFeedback;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wheelnavigator.MainActivity;
 import com.example.wheelnavigator.PlacePagePackage.PlacePage;
 import com.example.wheelnavigator.R;
 import com.example.wheelnavigator.Recommended.RecommendedActivity;
@@ -70,7 +72,7 @@ public class usrfeedback extends AppCompatActivity {
                   Toast.makeText(usrfeedback.this , "Please write your feedback ", Toast.LENGTH_SHORT).show();
               else {
                   CreateUsrFeedback(FeedbackText.getText().toString(), ratingBar.getRating());
-                  onBackPressed();
+
               }
 
           }
@@ -95,6 +97,7 @@ public class usrfeedback extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mRef.child("Username").setValue(snapshot.getValue().toString());
+
             }
 
             @Override
@@ -119,7 +122,7 @@ public class usrfeedback extends AppCompatActivity {
 
 
         Toast.makeText(this , "Feedback has been Sent", Toast.LENGTH_SHORT).show();
-        finish();
+        startActivity(new Intent(usrfeedback.this , RecommendedActivity.class));
 
     }
 

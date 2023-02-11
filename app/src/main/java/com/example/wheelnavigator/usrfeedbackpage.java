@@ -53,12 +53,12 @@ public class usrfeedbackpage extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     if (snapshot.exists()) {
                         usrFeedbackDataModel feedback = dataSnapshot.getValue(usrFeedbackDataModel.class);
+                        if(feedback.getCrn() != null && finalValue != null) {
 
-
-                        if (feedback.getCrn().equalsIgnoreCase(finalValue) == true ){
-                            feedbacklist.add(feedback);
+                            if (feedback.getCrn().equalsIgnoreCase(finalValue) == true) {
+                                feedbacklist.add(feedback);
+                            }
                         }
-
                     }
                 }
                 feedbackadapter.notifyDataSetChanged();

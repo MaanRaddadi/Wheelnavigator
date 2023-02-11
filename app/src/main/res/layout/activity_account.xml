@@ -40,9 +40,31 @@ android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/signout"
+            android:layout_width="134dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="260dp"
+            android:layout_marginBottom="500dp"
+            android:backgroundTint="@color/AliceBlue"
+            android:text="Sign out"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/AdminBtn"
+            android:layout_width="134dp"
+            android:layout_height="52dp"
+android:visibility="invisible"
+            android:backgroundTint="@color/AliceBlue"
+            android:text="Admin"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView7"
         android:layout_width="350dp"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/AliceBlue"
@@ -52,16 +74,16 @@ android:gravity="center"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.386" >
+        app:layout_constraintVertical_bias="0.386">
 
         <TextView
             android:id="@+id/AccountEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:text="TextView"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -78,27 +100,32 @@ android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
-    <Button
-        android:id="@+id/signout"
-        android:layout_width="134dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/White"
-        android:text="Sign out"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usrFeedbacklist"
         android:layout_width="409dp"
         android:layout_height="348dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/signout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView7"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:background="@color/AliceBlue"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

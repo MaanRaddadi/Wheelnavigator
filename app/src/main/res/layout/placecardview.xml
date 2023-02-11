@@ -28,7 +28,7 @@
             android:id="@+id/CardPlacename"
             android:layout_width="143dp"
             android:layout_height="wrap_content"
-
+            android:autoSizeTextType="uniform"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/PlaceLogo"
             android:text="TextView"

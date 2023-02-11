@@ -43,7 +43,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder,  int position) {
              PlaceDataModle place = list.get(position);
              holder.placename.setText(place.getName());
-             holder.DistanceFromCurrent.setText(String.valueOf(place.getDistance() + " Km"));
+             holder.DistanceFromCurrent.setText(place.getDistance() + " Km");
 
         Glide.with(context).load(list.get(position).getImageUrl()).error(R.drawable.ic_baseline_explore_24).fitCenter().into(holder.placelogo);
 

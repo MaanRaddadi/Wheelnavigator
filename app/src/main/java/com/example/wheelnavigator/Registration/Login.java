@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.wheelnavigator.Admin.AdminPanel;
 import com.example.wheelnavigator.MainActivity;
 import com.example.wheelnavigator.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,21 +51,25 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
                                 Toast.makeText(Login.this, "Login Succeeded ", Toast.LENGTH_SHORT).show();
+
                                 startActivity(new Intent(Login.this, MainActivity.class));
                             } else {
-                                Toast.makeText(Login.this, "Login Failed Please Check your Email & Password ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "Login Failed Please Check your Email or Password and try again", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                     });
 
                 }
-
             }
 
 
+
+
         });
+
         Regnow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
