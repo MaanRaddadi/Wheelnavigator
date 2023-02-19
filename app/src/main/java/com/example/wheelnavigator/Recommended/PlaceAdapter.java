@@ -55,16 +55,19 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         });
 
         holder.ApplicationRating.setImageResource(R.drawable.ic_baseline_accessible_24_default);
-       if(place.getApplicationRatingScore() >= 30){
+       if(place.getApplicationRatingScore() >= 27){
            holder.ApplicationRating.setImageResource(R.drawable.ic_baseline_accessible_24_green);
        }
-        if(place.getApplicationRatingScore() >= 20&& place.ApplicationRatingScore < 30){
+       if(place.getApplicationRatingScore() >= 23 && place.getApplicationRatingScore() < 27){
+           holder.ApplicationRating.setImageResource(R.drawable.baseline_accessible_24_darkgreen);
+       }
+        if(place.getApplicationRatingScore() >= 16&& place.ApplicationRatingScore < 23){
             holder.ApplicationRating.setImageResource(R.drawable.ic_baseline_accessible_24_yellew);
         }
-        if(place.getApplicationRatingScore() >= 10 && place.ApplicationRatingScore < 20){
+        if(place.getApplicationRatingScore() >= 6 && place.ApplicationRatingScore < 16){
             holder.ApplicationRating.setImageResource(R.drawable.ic_baseline_accessible_24_orange);
         }
-        if(place.getApplicationRatingScore() < 10 ){
+        if(place.getApplicationRatingScore() < 6 ){
             holder.ApplicationRating.setImageResource(R.drawable.ic_baseline_accessible_24_red);
         }
     }
